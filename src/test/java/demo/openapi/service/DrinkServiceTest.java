@@ -24,8 +24,6 @@ class DrinkServiceTest {
     @Mock
     private DrinkApiClient drinkApiClient;
     @Mock
-    private CreatedDrink createdDrink; //DON'T MOCK
-    @Mock
     private RestTemplate restTemplate;
 
     @InjectMocks
@@ -33,14 +31,19 @@ class DrinkServiceTest {
 
     @Test
     void createDrinkTest() {
+        final CreatedDrink createdDrink = new CreatedDrink();
         final String drink = "mojito";
 
-        given(this.drinkApiClient.createDrink(drink)).willReturn(ResponseEntity.ok(this.createdDrink));
+        createdDrink.setDrink(drink);
+
+        given(this.drinkApiClient.createDrink(drink)).willReturn(ResponseEntity.ok(createdDrink));
 
         // perform test
-        final CreatedDrink createdDrink = this.drinkService.createDrink(drink);
+        final CreatedDrink createdDrinkResult = this.drinkService.createDrink(drink);
 
         // verify results
-        assertThat(createdDrink, equalTo(drink));
+        assertThat(createdDrinkResult.getDrink(), equalTo(drink));
     }
+
+    //TODO: create test for wrong drink
 }
