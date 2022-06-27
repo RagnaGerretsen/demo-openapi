@@ -1,0 +1,13 @@
+server.port: 8083
+
+logging:
+  level:
+    root: INFO
+    com.github.tomakehurst.wiremock: WARN
+    org.apache.http.wire: WARN
+
+drinkService:
+  url: http://localhost:8080
+
+wrongDrink:
+  uri: dummy-uri/drink

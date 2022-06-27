@@ -1,0 +1,16 @@
+type: object
+properties:
+  drink:
+    type: string
+    description: 'Name of the drink'
+  colour:
+    type: string
+    description: 'The colour of the drink'
+  drinkType:
+    $ref: './DrinkType.yml'
+DrinkType:
+  type: "string"
+  enum:
+    - wine
+    - cocktail
+    - beer

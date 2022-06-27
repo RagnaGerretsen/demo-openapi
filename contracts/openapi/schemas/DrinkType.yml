@@ -1,0 +1,5 @@
+type: "string"
+enum:
+  - wine
+  - cocktail
+  - beer

@@ -1,0 +1,62 @@
+openapi: 3.0.2
+info:
+  title: "Demo API"
+  description: "Demo for openapi"
+  version: 1.0.0
+servers:
+  - url: dummy
+    description: "Dummy url"
+
+tags:
+  - name: demo
+    description: "Demo controller"
+paths:
+  /girls-night/drink/{drink}:
+    get:
+      tags:
+        - girlsNight
+      operationId: getGirlsNightDrink
+      parameters:
+        - name: drink
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        200:
+          description: Successfully retrieved search results
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CreatedDrink'
+        400:
+          description: "Bad request"
+        500:
+          description: "Server error"
+  /bad-girls-night/drink/{drink}/complicated/{complicated}:
+    get:
+      tags:
+        - girlsNight
+      operationId: getBadGirlsNightDrink
+      parameters:
+        - name: drink
+          in: path
+          required: true
+          schema:
+            type: string
+        - name: complicated
+          in: path
+          required: true
+          schema:
+            type: boolean
+      responses:
+        200:
+          description: Successfully retrieved search results
+          content:
+            application/json:
+              schema:
+                $ref: './schemas/CreatedDrink.yml'
+        400:
+          description: "Bad request"
+        500:
+          description: "Server error"

@@ -1,0 +1,26 @@
+server.port: 8081
+
+logging:
+  level:
+    root: WARN
+    demo.openapi: INFO
+    com.github.tomakehurst.wiremock: WARN
+    org.apache.http.wire: WARN
+  pattern:
+    level: 'something'
+
+feign:
+  client:
+    config:
+      default:
+        connectTimeout: 50000
+        readTimeout: 50000
+        loggerLevel: basic
+        errorDecoder: demo.openapi.client.handler.ClientErrorDecoder
+
+drinkService:
+  url: http://localhost:8080
+
+wrongDrink:
+  uri: dummy-uri/drink
+
