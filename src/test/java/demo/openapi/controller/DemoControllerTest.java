@@ -1,6 +1,7 @@
 package demo.openapi.controller;
 
 import demo.openapi.domain.CreatedDrink;
+import demo.openapi.domain.DrinkType;
 import demo.openapi.service.DrinkService;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -18,9 +19,8 @@ import static org.mockito.Mockito.when;
 class DemoControllerTest {
 
     private static final String MOJITO = "mojito";
+    private static final String BEER = "beer";
 
-    @Mock
-    private CreatedDrink createdDrink;
     @Mock
     private DrinkService drinkService;
 
@@ -28,9 +28,10 @@ class DemoControllerTest {
     private DemoController controller;
 
     @Test
-    void getDrinkDetails() {
+    void getGirlsNightDrink() {
         final CreatedDrink createdDrink = new CreatedDrink();
         createdDrink.setDrink(MOJITO);
+        createdDrink.setDrinkType(DrinkType.COCKTAIL);
 
         when(this.drinkService.createDrink(MOJITO)).thenReturn(createdDrink);
 
@@ -44,5 +45,36 @@ class DemoControllerTest {
         assertThat(createdDrinkResult.getDrink(), equalTo(MOJITO));
     }
 
-    //TODO: create test for wrong drink
+    @Test
+    void getEasyGirlsNightDrink() {
+        final CreatedDrink createdDrink = new CreatedDrink();
+        createdDrink.setDrink(BEER);
+        createdDrink.setDrinkType(DrinkType.BEER);
+
+        when(this.drinkService.createDrink(BEER)).thenReturn(createdDrink);
+
+        // perform test
+        ResponseEntity<CreatedDrink> responseEntity = this.controller.getGirlsNightDrink(BEER);
+
+        // verify results
+        assertThat(responseEntity.getStatusCode(), equalTo(HttpStatus.OK));
+
+        final CreatedDrink createdDrinkResult = responseEntity.getBody();
+        assertThat(createdDrinkResult.getDrink(), equalTo(BEER));
+    }
+
+    @Test
+    void getBadGirlsNightDrink() {
+        when(this.drinkService.createWrongDrink(MOJITO, true)).thenReturn(BEER);
+
+        // perform test
+        ResponseEntity<CreatedDrink> responseEntity = this.controller.getBadGirlsNightDrink(MOJITO, true);
+
+        // verify results
+        assertThat(responseEntity.getStatusCode(), equalTo(HttpStatus.OK));
+
+        // createWrongDrink creates the drink from the previous request that was held in memory
+        final CreatedDrink createdDrinkResult = responseEntity.getBody();
+        assertThat(createdDrinkResult.getDrink(), equalTo(BEER));
+    }
 }

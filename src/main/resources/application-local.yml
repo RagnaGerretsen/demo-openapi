@@ -22,5 +22,5 @@ drinkService:
   url: http://localhost:8080
 
 wrongDrink:
-  uri: dummy-uri/drink
+  uri: dummy-uri/{drink}
 

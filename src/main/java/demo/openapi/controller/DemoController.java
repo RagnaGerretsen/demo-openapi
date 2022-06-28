@@ -29,7 +29,6 @@ public class DemoController implements GirlsNightApi {
             log.info("Drink has been poured: {}", createdDrink.getDrinkType());
         }
 
-
         return new ResponseEntity<>(createdDrink, HttpStatus.OK);
     }
 
