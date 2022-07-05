@@ -11,7 +11,7 @@ tags:
   - name: demo
     description: "Demo controller"
 paths:
-  /girls-night/drink/{drink}:
+  /girls-night/drinks/{drink}:
     get:
       tags:
         - girlsNight
@@ -28,12 +28,12 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/CreatedDrink'
+                $ref: './schemas/CreatedDrink.yml'
         400:
           description: "Bad request"
         500:
           description: "Server error"
-  /bad-girls-night/drink/{drink}/complicated/{complicated}:
+  /bad-girls-night/drinks/{drink}/complicated/{complicated}:
     get:
       tags:
         - girlsNight
