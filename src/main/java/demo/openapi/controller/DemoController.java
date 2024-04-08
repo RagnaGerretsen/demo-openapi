@@ -3,7 +3,6 @@ package demo.openapi.controller;
 import demo.openapi.domain.CreatedDrink;
 import demo.openapi.domain.DrinkType;
 import demo.openapi.service.DrinkService;
-import io.swagger.annotations.Api;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
@@ -12,7 +11,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 @Slf4j
 @RestController
-@Api(tags = {"drink"})
 @RequiredArgsConstructor
 public class DemoController implements GirlsNightApi {
 

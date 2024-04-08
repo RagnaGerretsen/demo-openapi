@@ -4,24 +4,28 @@
     <modelVersion>4.0.0</modelVersion>
 
     <artifactId>demo-openapi</artifactId>
-    <version>0.0.1</version>
+    <version>0.0.2</version>
     <packaging>jar</packaging>
 
     <name>demo-openapi</name>
     <description>demo-openapi</description>
 
     <parent>
-        <groupId>org.springframework.boot</groupId>
-        <artifactId>spring-boot-starter-parent</artifactId>
-        <version>2.5.12</version>
-        <relativePath/>
+        <groupId>demo.starters</groupId>
+        <artifactId>demo-starters</artifactId>
+        <version>0.0.1</version>
     </parent>
 
     <properties>
-        <java.version>11</java.version>
-        <spring-cloud.version>2020.0.3</spring-cloud.version>
+        <java.version>21</java.version>
+        <spring-cloud.version>4.1.0</spring-cloud.version>
     </properties>
+
     <dependencies>
+        <dependency>
+            <groupId>demo.starters</groupId>
+            <artifactId>demo-starter</artifactId>
+        </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
@@ -48,7 +52,7 @@
         <dependency>
             <groupId>jakarta.validation</groupId>
             <artifactId>jakarta.validation-api</artifactId>
-            <version>2.0.2</version>
+            <version>3.0.2</version>
         </dependency>
         <dependency>
             <groupId>org.springframework</groupId>
@@ -62,24 +66,18 @@
         <dependency>
             <groupId>io.swagger.core.v3</groupId>
             <artifactId>swagger-annotations</artifactId>
-            <version>2.1.5</version>
-        </dependency>
-        <dependency>
-            <groupId>io.springfox</groupId>
-            <artifactId>springfox-swagger2</artifactId>
-            <version>2.9.2</version>
         </dependency>
         <dependency>
             <groupId>org.openapitools</groupId>
-            <artifactId>openapi-generator-maven-plugin</artifactId>
-            <version>[5.1.0,)</version>
+            <artifactId>jackson-databind-nullable</artifactId>
         </dependency>
     </dependencies>
+
     <dependencyManagement>
         <dependencies>
             <dependency>
                 <groupId>org.springframework.cloud</groupId>
-                <artifactId>spring-cloud-dependencies</artifactId>
+                <artifactId>spring-cloud-config-dependencies</artifactId>
                 <version>${spring-cloud.version}</version>
                 <type>pom</type>
                 <scope>import</scope>
@@ -105,7 +103,7 @@
             <plugin>
                 <groupId>org.openapitools</groupId>
                 <artifactId>openapi-generator-maven-plugin</artifactId>
-                <version>3.3.4</version>
+                <version>6.5.0</version>
                 <executions>
                     <!-- controller API -->
                     <execution>
@@ -126,7 +124,9 @@
                                 <basePackage>demo.openapi</basePackage>
                                 <configPackage>demo.openapi.config</configPackage>
                                 <library>spring-boot</library>
-                                <java11>true</java11>
+                                <java17>true</java17>
+                                <useSpringBoot3>true</useSpringBoot3>
+                                <useJakartaEe>true</useJakartaEe>
                                 <useOptional>false</useOptional>
                                 <hideGenerationTimestamp>true</hideGenerationTimestamp>
                                 <useTags>true</useTags>
@@ -150,7 +150,10 @@
                                 <basePackage>demo.openapi</basePackage>
                                 <configPackage>demo.openapi.client.config.drink</configPackage>  <!-- you need to manually create ClientConfiguration.java -->
                                 <library>spring-cloud</library>
-                                <java11>true</java11>
+                                <java17>true</java17>
+                                <useSpringBoot3>true</useSpringBoot3>
+                                <useJakartaEe>true</useJakartaEe>
+                                <useBeanValidation>true</useBeanValidation>
                                 <useOptional>false</useOptional>
                                 <hideGenerationTimestamp>true</hideGenerationTimestamp>
                                 <useTags>true</useTags>
