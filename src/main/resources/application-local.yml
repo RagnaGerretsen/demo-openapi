@@ -3,11 +3,7 @@ server.port: 8081
 logging:
   level:
     root: WARN
-    demo.openapi: INFO
-    com.github.tomakehurst.wiremock: WARN
-    org.apache.http.wire: WARN
-  pattern:
-    level: 'something'
+    demo.use.starters: INFO
 
 feign:
   client:
@@ -16,11 +12,21 @@ feign:
         connectTimeout: 50000
         readTimeout: 50000
         loggerLevel: basic
-        errorDecoder: demo.openapi.client.handler.ClientErrorDecoder
+        errorDecoder: demo.use.starters.client.handler.ClientErrorDecoder
 
-drinkService:
-  url: http://localhost:8080
+drink:
+    url: http://localhost:8080
+    name:
+      azure-application-id-scope: some-uuid-scope/.default
 
-wrongDrink:
-  uri: dummy-uri/{drink}
+# Kong oauth2 properties
+azure:
+  security:
+    oauth:
+      # note - tokenUrl is used for defining the "aud" part of the Jwt claimset.  It is NOT the url that we call to get the token
+      tokenUrl: https://login.microsoftonline.com/6e93a626-8aca-4dc1-9191-ce291b4b75a1/oauth2/v2.0/token
+      clientId: some-uuid-clientid
+      certificateAlias: cert
+      keystoreFileResource: classpath:your-jks.jks
+      keystorePassword: your-keystore-password-from-secured-place
 

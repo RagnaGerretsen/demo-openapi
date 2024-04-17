@@ -1,5 +1,5 @@
 spring:
   application:
-    name: demo-openapi
+    name: demo-use-starters
   main:
     allow-bean-definition-overriding: true

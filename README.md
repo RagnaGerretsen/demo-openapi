@@ -1,5 +1,5 @@
 # Demo OpenAPI 
-This is a demo project to demo openapi. 
+This is a demo project to demo openapi and the use of starters for your application. 
 It shows how to use OpenApi for an incoming request API and a client API.
 There is also an example of a client API without using OpenApi - 
 with a very bad error that could never happen with OpenAPI.
@@ -22,4 +22,13 @@ A quick guide on how to use OpenApi:
   - To use the endpoint simply call the generated method 
     (with the OperationId you used) from the API client class
 
+Using the starters:
+- There is a parent starters "demo-starters" which holds the starter modules 
+  (including a library as an example --> this should a separate project however for simplicity it's added there)
+- In the pom define the parent as the starters project
+- Import the different modules that you want to use
+- When using the starter annotations you can choose which to use (if there would be more, in this demo there's just one)
+  and you can enable the annotation in your AppConfiguration - see interceptor annotation for an example
 
+Using a generic library:
+- It's like using any other dependency except you have created it yourself for use across teams

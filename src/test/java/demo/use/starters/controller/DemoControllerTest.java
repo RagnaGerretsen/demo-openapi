@@ -1,8 +1,9 @@
-package demo.openapi.controller;
+package demo.use.starters.controller;
 
-import demo.openapi.domain.CreatedDrink;
-import demo.openapi.domain.DrinkType;
-import demo.openapi.service.DrinkService;
+import demo.use.starters.domain.CreatedDrink;
+import demo.use.starters.domain.DrinkType;
+import demo.use.starters.exception.PaymentNotMadeException;
+import demo.use.starters.service.DrinkService;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -13,6 +14,8 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.MatcherAssert.assertThat;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.Mockito.when;
 
 @ExtendWith(SpringExtension.class)
@@ -29,52 +32,45 @@ class DemoControllerTest {
 
     @Test
     void getGirlsNightDrink() {
-        final CreatedDrink createdDrink = new CreatedDrink();
-        createdDrink.setDrink(MOJITO);
-        createdDrink.setDrinkType(DrinkType.COCKTAIL);
-
-        when(this.drinkService.createDrink(MOJITO)).thenReturn(createdDrink);
+        setupCreatedDrinkExpectation(MOJITO, DrinkType.COCKTAIL);
 
         // perform test
-        ResponseEntity<CreatedDrink> responseEntity = this.controller.getGirlsNightDrink(MOJITO);
+        ResponseEntity<CreatedDrink> responseEntity = this.controller.getGirlsNightDrink(MOJITO, 10);
 
         // verify results
         assertThat(responseEntity.getStatusCode(), equalTo(HttpStatus.OK));
 
         final CreatedDrink createdDrinkResult = responseEntity.getBody();
+        assertNotNull(createdDrinkResult);
         assertThat(createdDrinkResult.getDrink(), equalTo(MOJITO));
     }
 
     @Test
     void getEasyGirlsNightDrink() {
-        final CreatedDrink createdDrink = new CreatedDrink();
-        createdDrink.setDrink(BEER);
-        createdDrink.setDrinkType(DrinkType.BEER);
-
-        when(this.drinkService.createDrink(BEER)).thenReturn(createdDrink);
+        setupCreatedDrinkExpectation(BEER, DrinkType.BEER);
 
         // perform test
-        ResponseEntity<CreatedDrink> responseEntity = this.controller.getGirlsNightDrink(BEER);
+        ResponseEntity<CreatedDrink> responseEntity = this.controller.getGirlsNightDrink(BEER, 4);
 
         // verify results
         assertThat(responseEntity.getStatusCode(), equalTo(HttpStatus.OK));
 
         final CreatedDrink createdDrinkResult = responseEntity.getBody();
+        assertNotNull(createdDrinkResult);
         assertThat(createdDrinkResult.getDrink(), equalTo(BEER));
     }
 
     @Test
-    void getBadGirlsNightDrink() {
-        when(this.drinkService.createWrongDrink(MOJITO, true)).thenReturn(BEER);
-
+    void getGirlsNightDrink_throwsPaymentNotMadeException() {
         // perform test
-        ResponseEntity<CreatedDrink> responseEntity = this.controller.getBadGirlsNightDrink(MOJITO, true);
+        assertThrows(PaymentNotMadeException.class, () -> this.controller.getGirlsNightDrink(BEER, 0));
+    }
 
-        // verify results
-        assertThat(responseEntity.getStatusCode(), equalTo(HttpStatus.OK));
+    private void setupCreatedDrinkExpectation(String beer, DrinkType beer1) {
+        final CreatedDrink createdDrink = new CreatedDrink();
+        createdDrink.setDrink(beer);
+        createdDrink.setDrinkType(beer1);
 
-        // createWrongDrink creates the drink from the previous request that was held in memory
-        final CreatedDrink createdDrinkResult = responseEntity.getBody();
-        assertThat(createdDrinkResult.getDrink(), equalTo(BEER));
+        when(this.drinkService.createDrink(beer)).thenReturn(createdDrink);
     }
 }

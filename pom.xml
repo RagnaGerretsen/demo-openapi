@@ -3,12 +3,12 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>demo-openapi</artifactId>
+    <artifactId>demo-use-starters</artifactId>
     <version>0.0.2</version>
     <packaging>jar</packaging>
 
-    <name>demo-openapi</name>
-    <description>demo-openapi</description>
+    <name>demo-use-starters</name>
+    <description>demo-use-starters</description>
 
     <parent>
         <groupId>demo.starters</groupId>
@@ -18,13 +18,16 @@
 
     <properties>
         <java.version>21</java.version>
-        <spring-cloud.version>4.1.0</spring-cloud.version>
     </properties>
 
     <dependencies>
         <dependency>
             <groupId>demo.starters</groupId>
             <artifactId>demo-starter</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>demo.starters</groupId>
+            <artifactId>demo-library</artifactId>
         </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -37,6 +40,14 @@
         <dependency>
             <groupId>org.springframework.cloud</groupId>
             <artifactId>spring-cloud-starter-openfeign</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-webmvc</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-web</artifactId>
         </dependency>
 
         <dependency>
@@ -52,7 +63,6 @@
         <dependency>
             <groupId>jakarta.validation</groupId>
             <artifactId>jakarta.validation-api</artifactId>
-            <version>3.0.2</version>
         </dependency>
         <dependency>
             <groupId>org.springframework</groupId>
@@ -71,19 +81,12 @@
             <groupId>org.openapitools</groupId>
             <artifactId>jackson-databind-nullable</artifactId>
         </dependency>
+        <dependency>
+            <groupId>commons-lang</groupId>
+            <artifactId>commons-lang</artifactId>
+            <version>2.6</version>
+        </dependency>
     </dependencies>
-
-    <dependencyManagement>
-        <dependencies>
-            <dependency>
-                <groupId>org.springframework.cloud</groupId>
-                <artifactId>spring-cloud-config-dependencies</artifactId>
-                <version>${spring-cloud.version}</version>
-                <type>pom</type>
-                <scope>import</scope>
-            </dependency>
-        </dependencies>
-    </dependencyManagement>
 
     <build>
         <plugins>
@@ -114,46 +117,19 @@
                         <configuration>
                             <inputSpec>${project.basedir}/contracts/openapi/demo.yml</inputSpec>
                             <generatorName>spring</generatorName>
-                            <apiPackage>demo.openapi.controller</apiPackage>
-                            <modelPackage>demo.openapi.domain</modelPackage>
+                            <apiPackage>demo.use.starters.controller</apiPackage>
+                            <modelPackage>demo.use.starters.domain</modelPackage>
                             <supportingFilesToGenerate>OpenAPIDocumentationConfig.java,ApiUtil.java
                             </supportingFilesToGenerate>
                             <configOptions>
                                 <interfaceOnly>true</interfaceOnly>
                                 <swaggerDocketConfig>true</swaggerDocketConfig>
-                                <basePackage>demo.openapi</basePackage>
-                                <configPackage>demo.openapi.config</configPackage>
+                                <basePackage>demo.use.starters</basePackage>
+                                <configPackage>demo.use.starters.config</configPackage>
                                 <library>spring-boot</library>
                                 <java17>true</java17>
                                 <useSpringBoot3>true</useSpringBoot3>
                                 <useJakartaEe>true</useJakartaEe>
-                                <useOptional>false</useOptional>
-                                <hideGenerationTimestamp>true</hideGenerationTimestamp>
-                                <useTags>true</useTags>
-                            </configOptions>
-                        </configuration>
-                    </execution>
-
-                    <execution>
-                        <!-- Client API -->
-                        <id>generate-drink-service-client-api</id>
-                        <goals>
-                            <goal>generate</goal>
-                        </goals>
-                        <configuration>
-                            <inputSpec>${project.basedir}/contracts/openapi/drink.yml</inputSpec>
-                            <generatorName>spring</generatorName>
-                            <apiPackage>demo.openapi.drink.api</apiPackage>
-                            <modelPackage>demo.openapi.domain</modelPackage>
-                            <generateSupportingFiles>false</generateSupportingFiles>
-                            <configOptions>
-                                <basePackage>demo.openapi</basePackage>
-                                <configPackage>demo.openapi.client.config.drink</configPackage>  <!-- you need to manually create ClientConfiguration.java -->
-                                <library>spring-cloud</library>
-                                <java17>true</java17>
-                                <useSpringBoot3>true</useSpringBoot3>
-                                <useJakartaEe>true</useJakartaEe>
-                                <useBeanValidation>true</useBeanValidation>
                                 <useOptional>false</useOptional>
                                 <hideGenerationTimestamp>true</hideGenerationTimestamp>
                                 <useTags>true</useTags>
