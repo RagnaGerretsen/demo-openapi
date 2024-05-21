@@ -1,7 +1,7 @@
 package demo.use.starters.service;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import demo.library.drink.api.DrinkApiClient;
+import demo.clients.drink.api.DrinkApiClient;
 import demo.use.starters.domain.CreatedDrink;
 import demo.use.starters.exception.DemoException;
 import feign.FeignException;
@@ -23,7 +23,7 @@ public class DrinkService {
         log.info("Calling drink-service for {}", drink);
 
         try {
-            demo.library.domain.CreatedDrink createdDrinkResponse = this.drinkApiClient.createDrink(drink).getBody();
+            demo.clients.domain.CreatedDrink createdDrinkResponse = this.drinkApiClient.createDrink(drink).getBody();
 
             if (createdDrinkResponse == null) {
                 log.error(ERROR_WHILE_CALLING_DRINK_SERVICE + " response is null");

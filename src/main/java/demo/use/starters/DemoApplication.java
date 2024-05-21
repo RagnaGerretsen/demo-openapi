@@ -6,7 +6,7 @@ import org.springframework.cloud.openfeign.EnableFeignClients;
 import org.springframework.context.ConfigurableApplicationContext;
 
 @SpringBootApplication()
-@EnableFeignClients({"demo.use.starters", "demo.library"})
+@EnableFeignClients({"demo.use.starters", "demo.clients"})
 public class DemoApplication {
 
     public static void main(final String[] args) {

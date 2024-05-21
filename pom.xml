@@ -13,7 +13,7 @@
     <parent>
         <groupId>demo.starters</groupId>
         <artifactId>demo-starters</artifactId>
-        <version>0.0.1</version>
+        <version>0.0.2</version>
     </parent>
 
     <properties>
@@ -27,7 +27,7 @@
         </dependency>
         <dependency>
             <groupId>demo.starters</groupId>
-            <artifactId>demo-library</artifactId>
+            <artifactId>demo-clients</artifactId>
         </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -106,7 +106,7 @@
             <plugin>
                 <groupId>org.openapitools</groupId>
                 <artifactId>openapi-generator-maven-plugin</artifactId>
-                <version>6.5.0</version>
+                <version>7.5.0</version>
                 <executions>
                     <!-- controller API -->
                     <execution>

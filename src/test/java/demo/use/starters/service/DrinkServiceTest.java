@@ -1,7 +1,7 @@
 package demo.use.starters.service;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import demo.library.drink.api.DrinkApiClient;
+import demo.clients.drink.api.DrinkApiClient;
 import demo.use.starters.domain.CreatedDrink;
 import demo.use.starters.exception.DemoException;
 import feign.FeignException;
@@ -37,7 +37,7 @@ class DrinkServiceTest {
 
     @Test
     void createDrinkTest() {
-        final demo.library.domain.CreatedDrink createdDrink = new demo.library.domain.CreatedDrink();
+        final demo.clients.domain.CreatedDrink createdDrink = new demo.clients.domain.CreatedDrink();
         createdDrink.setDrink(MOJITO);
 
         final CreatedDrink createdDrinkFinal = new CreatedDrink();
